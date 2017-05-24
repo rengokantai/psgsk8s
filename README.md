@@ -30,3 +30,31 @@ servicetype
 - LoadBalancer integrates nodeport with cloud-based load balancers
 
 
+exp
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-svc
+  labels:
+    app: hello-world
+spec:
+  type: NodePort
+  ports:
+  - port:8080
+    nodePort: 30001
+    protocol: TCP
+  selector:
+    app: hello-world
+```
+
+```
+kubectl describe pods | grep app
+```
+
+
+```
+kubectl create -f svc.yml
+kubectl get svc
+```
+
