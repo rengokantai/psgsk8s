@@ -1,4 +1,23 @@
 # psgsk8s
+## 4. Kubernetes Architecture
+
+
+## 6. Working with Pods
+### 2 Deploying Your First Pod
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-pod
+spec:
+  containers:
+  - name: hello-ctr
+    image: ni
+    ports:
+    - containerPort: 8080
+  
+```
+
 ## 7. Kubernetes Services
 ### 3 Creating a Service the Iterative
 ```
@@ -85,4 +104,50 @@ spec:
       ports:
       - containerPort: 8080
 ```
+```
+kubectl create -f deploy.yml
+kubectl get rs
+```
 
+
+### 4 Updating a Deployment
+```
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hello-deploy
+spec:
+  replicas: 10
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - name: hello-pod
+      image: nigelpoulton/pluralsight-docker-ci:latest
+      ports:
+      - containerPort: 8080
+```
+```
+kubectl apply -f deploy.yml --record
+kubectl rollout status deployment hello-deploy
+kubectl get deploy hello-deploy
+```
+```
+kubectl rollout history deployment hello-deploy
+```
+
+```
+kubectl describe deploy hello-deploy
+```
+
+```
+kubectl rollout undo deployment hello-deploy --to-revision=1
+```
