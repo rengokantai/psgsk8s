@@ -19,8 +19,14 @@ kubectl delete svc hello-svc
 spec:
   type: NodePort
   ports:
-  - port: 8989
+  - port: 8080
     protocol: TCP
   selector:
     app: hello-world
 ```
+servicetype
+- ClusterIP stable internal cluster IP
+- NodePort Exposes the app outside of the cluster by adding a cluster-wide port on top of clusterIP
+- LoadBalancer integrates nodeport with cloud-based load balancers
+
+
