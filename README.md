@@ -58,3 +58,31 @@ kubectl create -f svc.yml
 kubectl get svc
 ```
 
+## 8.Kubernetes Deployments
+### 2 Deployment Theory
+```
+kubectl colling-update -f updated-rc.yml
+```
+```
+kubectl delete rc hello-rc
+```
+### 3 Creating Your First Kubernetes Deployment
+```
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hello-deploy
+spec:
+  replicas: 10
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - name: hello-pod
+      image: nigelpoulton/pluralsight-docker-ci:latest
+      ports:
+      - containerPort: 8080
+```
+
